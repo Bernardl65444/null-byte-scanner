@@ -66,3 +66,10 @@ True if the input contains at least one control character as defined above.
 ### `scan(): object`
 
 Returns a summary object with `totalBytes`, `nullByteCount`, `controlCharacterCount`, `nonAsciiByteCount`, and `isBinary`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
